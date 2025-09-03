@@ -66,6 +66,41 @@
             color: #ecf0f1;
         }
         
+        /* Mobile Navigation */
+        .menu-toggle {
+            display: none;
+            font-size: 1.5rem;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background: #2c3e50;
+                padding: 1rem 0;
+                text-align: center;
+            }
+            
+            nav ul.active {
+                display: flex;
+            }
+            
+            nav a {
+                padding: 1rem 0;
+                font-size: 1.2rem;
+            }
+        }
+        
         /* Page Sections */
         .page {
             display: none;
@@ -360,19 +395,63 @@
                 margin-bottom: 2rem;
             }
             
+            .profile-image img {
+                width: 250px;
+                height: 250px;
+            }
+            
             .hero h1 {
                 font-size: 2.5rem;
             }
             
-            nav ul {
-                gap: 1.5rem;
-                flex-direction: column;
-                text-align: center;
-                margin-top: 1rem;
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .btn {
+                padding: 0.8rem 2rem;
+            }
+            
+            .video-container {
+                padding: 1.5rem;
+            }
+            
+            .video-container div {
+                height: 200px;
             }
             
             .contact-grid {
                 grid-template-columns: 1fr;
+            }
+            
+            .contact-card {
+                padding: 1.5rem;
+            }
+            
+            .team-table h3 {
+                font-size: 1.5rem;
+            }
+            
+            th, td {
+                padding: 1rem;
+                font-size: 0.9rem;
+            }
+            
+            .testimonials-section h2, .faq-section h2 {
+                font-size: 2rem;
+            }
+            
+            .testimonial {
+                padding: 1.5rem;
+            }
+            
+            .faq-question {
+                padding: 1rem;
+                font-size: 1rem;
+            }
+            
+            .faq-answer {
+                padding: 1rem;
             }
         }
         
@@ -394,7 +473,8 @@
     <nav>
         <div class="container">
             <div class="logo">Kannan</div>
-            <ul>
+            <span class="menu-toggle" onclick="toggleMenu()">☰</span>
+            <ul id="nav-menu">
                 <li><a href="#" onclick="showPage('home')">Home</a></li>
                 <li><a href="#" onclick="showPage('team')">Team</a></li>
                 <li><a href="#" onclick="showPage('testimonials')">Testimonials & FAQ</a></li>
@@ -737,6 +817,11 @@
         function toggleFAQ(element) {
             const answer = element.nextElementSibling;
             answer.classList.toggle('active');
+        }
+        
+        function toggleMenu() {
+            const navMenu = document.getElementById('nav-menu');
+            navMenu.classList.toggle('active');
         }
     </script>
 </body>
