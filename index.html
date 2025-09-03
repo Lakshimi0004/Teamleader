@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kannan - Team Leader</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+            padding-top: 80px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Navigation */
+        nav {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            padding: 1.5rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: #ffffff;
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+        
+        nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+        
+        nav a:hover {
+            color: #ecf0f1;
+        }
+        
+        /* Page Sections */
+        .page {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .page.active {
+            display: block;
+        }
+        
+        /* Home Page */
+        .hero {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: #ffffff;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #e74c3c;
+            color: #ffffff;
+            padding: 1rem 2.5rem;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
+        }
+        
+        .profile-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 5rem 0;
+            background: #ecf0f1;
+        }
+        
+        .profile-image {
+            text-align: center;
+            margin-right: 3rem;
+        }
+        
+        .profile-image img {
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 8px solid #3498db;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-image img:hover {
+            transform: scale(1.05);
+        }
+        
+        .profile-content h2 {
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .profile-content p {
+            margin-bottom: 1.5rem;
+            color: #7f8c8d;
+            font-size: 1.1rem;
+        }
+        
+        .profile-content ul {
+            margin-left: 2rem;
+            color: #7f8c8d;
+        }
+        
+        .profile-content ul li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .video-section {
+            background: #ffffff;
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .video-section h2 {
+            color: #2c3e50;
+            margin-bottom: 2.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .video-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: #ecf0f1;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            background: #ecf0f1;
+            padding: 5rem 0;
+        }
+        
+        .contact-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 3.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+        }
+        
+        .contact-card {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            background: #3498db;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: #ffffff;
+            font-size: 1.8rem;
+        }
+        
+        /* Team Page */
+        .team-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: #ffffff;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .team-content {
+            padding: 5rem 0;
+        }
+        
+        .team-table {
+            background: #ffffff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin-bottom: 3.5rem;
+        }
+        
+        .team-table h3 {
+            background: #3498db;
+            color: #ffffff;
+            padding: 1.5rem;
+            margin: 0;
+            text-align: center;
+            font-size: 1.8rem;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 1.5rem;
+            text-align: left;
+            border-bottom: 2px solid #ecf0f1;
+        }
+        
+        th {
+            background: #ecf0f1;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+        
+        tr:hover {
+            background: #f9fbfc;
+        }
+        
+        /* Testimonials & FAQ Page */
+        .testimonials-section, .faq-section {
+            padding: 4rem 0;
+        }
+        
+        .testimonials-section h2, .faq-section h2 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 2.5rem;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .testimonial {
+            background: #ffffff;
+            padding: 2.5rem;
+            margin-bottom: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .testimonial:hover {
+            transform: translateY(-5px);
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            color: #7f8c8d;
+        }
+        
+        .testimonial-author {
+            color: #3498db;
+            font-weight: 600;
+        }
+        
+        .faq-item {
+            background: #ffffff;
+            margin-bottom: 1.5rem;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .faq-question {
+            background: #3498db;
+            color: #ffffff;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            font-size: 1.2rem;
+        }
+        
+        .faq-question:hover {
+            background: #2980b9;
+        }
+        
+        .faq-answer {
+            padding: 1.5rem;
+            display: none;
+            color: #7f8c8d;
+        }
+        
+        .faq-answer.active {
+            display: block;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .profile-section {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .profile-image {
+                margin-right: 0;
+                margin-bottom: 2rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            nav ul {
+                gap: 1.5rem;
+                flex-direction: column;
+                text-align: center;
+                margin-top: 1rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="logo">Kannan</div>
+            <ul>
+                <li><a href="#" onclick="showPage('home')">Home</a></li>
+                <li><a href="#" onclick="showPage('team')">Team</a></li>
+                <li><a href="#" onclick="showPage('testimonials')">Testimonials & FAQ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Home Page -->
+    <div id="home" class="page active">
+        <section class="hero">
+            <div class="container">
+                <h1>Kannan</h1>
+                <p>Experienced Team Leader & Project Manager</p>
+                <a href="#profile" class="btn">Learn More About Me</a>
+            </div>
+        </section>
+
+        <section id="profile" class="profile-section">
+            <div class="container">
+                <div class="profile-image">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=350&h=350&fit=crop&crop=face" alt="Kannan - Team Leader" />
+                </div>
+                <div class="profile-content">
+                    <h2>About Me</h2>
+                    <p>With over 8 years of experience in team leadership and project management, I have successfully led diverse teams across multiple industries. My passion lies in fostering collaborative environments that drive innovation and deliver exceptional results.</p>
+                    <p>I specialize in agile methodologies, team development, and strategic planning. My approach combines data-driven decision making with empathetic leadership to create high-performing teams that consistently exceed their goals.</p>
+                    <p><strong>Key Expertise:</strong></p>
+                    <ul>
+                        <li>Team Leadership & Development</li>
+                        <li>Project Management (PMP Certified)</li>
+                        <li>Agile & Scrum Methodologies</li>
+                        <li>Strategic Planning & Execution</li>
+                        <li>Performance Optimization</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="video-section">
+            <div class="container">
+                <h2>Introduction Video</h2>
+                <div class="video-container">
+                    <p>Watch this brief introduction to learn more about my leadership philosophy and approach.</p>
+                    <div style="background: #ecf0f1; height: 350px; border-radius: 15px; display: flex; align-items: center; justify-content: center; color: #7f8c8d;">
+                        <div style="text-align: center;">
+                            <div style="font-size: 3.5rem; margin-bottom: 1.5rem;">▶️</div>
+                            <p>Sample Introduction Video</p>
+                            <p style="font-size: 1rem;">(Video placeholder - Replace with actual video embed)</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="contact-section">
+            <div class="container">
+                <h2>Contact Information</h2>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email</h3>
+                        <p>kannan@company.com</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">📱</div>
+                        <h3>Phone</h3>
+                        <p>+91 98765-43210</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <h3>Office Address</h3>
+                        <p>456 Tamil Nadu Towers<br>Suite 789<br>Chennai, TN 600001</p>
+                    </div>
+                    <div class="contact-card">
+                        <div class="contact-icon">💼</div>
+                        <h3>LinkedIn</h3>
+                        <p>linkedin.com/in/kannan</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Team Page -->
+    <div id="team" class="page">
+        <section class="team-header">
+            <div class="container">
+                <h1>Our Team</h1>
+                <p>Meet our talented team members and explore our achievements</p>
+            </div>
+        </section>
+
+        <section class="team-content">
+            <div class="container">
+                <div class="team-table">
+                    <h3>Team Members</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Experience</th>
+                                <th>Specialization</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Saravanan</td>
+                                <td>Senior Developer</td>
+                                <td>5 years</td>
+                                <td>Full-Stack Development</td>
+                            </tr>
+                            <tr>
+                                <td>Muthu</td>
+                                <td>UX Designer</td>
+                                <td>4 years</td>
+                                <td>User Experience Design</td>
+                            </tr>
+                            <tr>
+                                <td>Rani</td>
+                                <td>Data Analyst</td>
+                                <td>3 years</td>
+                                <td>Business Intelligence</td>
+                            </tr>
+                            <tr>
+                                <td>Kumar</td>
+                                <td>DevOps Engineer</td>
+                                <td>6 years</td>
+                                <td>Cloud Infrastructure</td>
+                            </tr>
+                            <tr>
+                                <td>Lakshmi</td>
+                                <td>QA Specialist</td>
+                                <td>4 years</td>
+                                <td>Automated Testing</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="team-table">
+                    <h3>Major Projects</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Project Name</th>
+                                <th>Duration</th>
+                                <th>Team Size</th>
+                                <th>Status</th>
+                                <th>Impact</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>E-commerce Platform Redesign</td>
+                                <td>6 months</td>
+                                <td>8 members</td>
+                                <td>Completed</td>
+                                <td>40% increase in conversions</td>
+                            </tr>
+                            <tr>
+                                <td>Mobile App Development</td>
+                                <td>8 months</td>
+                                <td>6 members</td>
+                                <td>Completed</td>
+                                <td>100K+ downloads in first month</td>
+                            </tr>
+                            <tr>
+                                <td>Data Analytics Dashboard</td>
+                                <td>4 months</td>
+                                <td>5 members</td>
+                                <td>Completed</td>
+                                <td>Reduced reporting time by 60%</td>
+                            </tr>
+                            <tr>
+                                <td>Cloud Migration Project</td>
+                                <td>10 months</td>
+                                <td>12 members</td>
+                                <td>In Progress</td>
+                                <td>Expected 30% cost reduction</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="team-table">
+                    <h3>Team Achievements</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Achievement</th>
+                                <th>Year</th>
+                                <th>Category</th>
+                                <th>Recognition</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Best Innovation Team</td>
+                                <td>2023</td>
+                                <td>Company Award</td>
+                                <td>Internal Recognition</td>
+                            </tr>
+                            <tr>
+                                <td>Fastest Project Delivery</td>
+                                <td>2023</td>
+                                <td>Performance</td>
+                                <td>Department Award</td>
+                            </tr>
+                            <tr>
+                                <td>Customer Satisfaction Excellence</td>
+                                <td>2022</td>
+                                <td>Quality</td>
+                                <td>Client Testimonial</td>
+                            </tr>
+                            <tr>
+                                <td>Zero Bug Release</td>
+                                <td>2022</td>
+                                <td>Quality Assurance</td>
+                                <td>Technical Excellence</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Testimonials & FAQ Page -->
+    <div id="testimonials" class="page">
+        <section class="team-header">
+            <div class="container">
+                <h1>Testimonials & FAQ</h1>
+                <p>What people say about our work and answers to common questions</p>
+            </div>
+        </section>
+
+        <section class="testimonials-section">
+            <div class="container">
+                <h2>Client Testimonials</h2>
+                
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Kannan's leadership transformed our project delivery timeline. His team consistently delivered high-quality results ahead of schedule. The attention to detail and proactive communication made all the difference."
+                    </div>
+                    <div class="testimonial-author">- Ravi, CEO, TechCorp</div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Working with Kannan's team was exceptional. They understood our requirements perfectly and delivered a solution that exceeded our expectations. The project management was flawless."
+                    </div>
+                    <div class="testimonial-author">- Priya, CTO, InnovateSoft</div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "The team's technical expertise and collaborative approach made our complex integration project seamless. Kannan's leadership kept everyone aligned and motivated throughout the process."
+                    </div>
+                    <div class="testimonial-author">- Suresh, Director, DataFlow Inc.</div>
+                </div>
+
+                <div class="testimonial">
+                    <div class="testimonial-text">
+                        "Outstanding project management and team coordination. The deliverables were always on time and the communication was clear and professional. Highly recommended!"
+                    </div>
+                    <div class="testimonial-author">- Anitha, VP Operations, GlobalTech</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section">
+            <div class="container">
+                <h2>Frequently Asked Questions</h2>
+                
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What is your typical project timeline?
+                    </div>
+                    <div class="faq-answer">
+                        Project timelines vary depending on scope and complexity. Typically, small projects take 2-4 weeks, medium projects 2-4 months, and large enterprise projects 6-12 months. We provide detailed project plans with milestones during the initial consultation.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How do you ensure project quality?
+                    </div>
+                    <div class="faq-answer">
+                        We follow rigorous quality assurance processes including code reviews, automated testing, user acceptance testing, and regular client feedback sessions. Our team maintains high standards through continuous learning and certification programs.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What project management methodologies do you use?
+                    </div>
+                    <div class="faq-answer">
+                        We primarily use Agile and Scrum methodologies, but we adapt our approach based on project requirements. We also incorporate elements of Kanban for workflow optimization and use tools like Jira, Asana, or Trello for project tracking.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        How do you handle communication during projects?
+                    </div>
+                    <div class="faq-answer">
+                        We maintain transparent communication through regular status updates, weekly progress reports, and scheduled check-in meetings. Clients have access to project dashboards and can reach out anytime via email, phone, or our project management platform.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        Do you provide post-project support?
+                    </div>
+                    <div class="faq-answer">
+                        Yes, we offer comprehensive post-project support including bug fixes, maintenance, updates, and additional feature development. We provide different support packages to meet varying client needs and budgets.
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question" onclick="toggleFAQ(this)">
+                        What industries do you have experience in?
+                    </div>
+                    <div class="faq-answer">
+                        Our team has worked across various industries including e-commerce, healthcare, finance, education, manufacturing, and technology startups. This diverse experience allows us to bring best practices from different sectors to each project.
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+        }
+        
+        function toggleFAQ(element) {
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
