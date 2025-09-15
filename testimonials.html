@@ -6,9 +6,20 @@
   <title>Testimonials & FAQ - D. Rama Rao</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    #nav-menu { transition: transform 0.3s ease-in-out; }
-    #nav-menu.hidden { transform: translateY(-100%); }
-    #nav-menu:not(.hidden) { transform: translateY(0); }
+    #nav-menu {
+      transition: transform 0.3s ease-in-out;
+    }
+    
+    /* Mobile menu styles */
+    @media (max-width: 767px) {
+      #nav-menu.hidden {
+        transform: translateY(-100%);
+      }
+      #nav-menu:not(.hidden) {
+        transform: translateY(0);
+      }
+    }
+
     .faq-answer {
       transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
       max-height: 0;
@@ -27,7 +38,13 @@
     <div class="container mx-auto px-4 flex justify-between items-center py-4">
       <div class="text-2xl font-serif font-bold uppercase">D. Rama Rao</div>
       <button id="menu-toggle" class="md:hidden text-2xl">☰</button>
-      <ul id="nav-menu" class="max-h-0 md:max-h-screen md:flex space-y-4 md:space-y-0 md:space-x-6 absolute md:static left-0 top-full w-full md:w-auto bg-blue-700 md:bg-transparent shadow-lg md:shadow-none px-6 md:px-0 py-4 md:py-0">
+      
+      <!-- Fixed Navigation Menu -->
+      <ul id="nav-menu" 
+          class="hidden md:flex flex-col md:flex-row md:space-x-6 
+                 absolute md:relative left-0 top-full md:top-auto w-full md:w-auto 
+                 bg-blue-700 md:bg-transparent shadow-lg md:shadow-none 
+                 px-6 md:px-0 py-4 md:py-0">
         <li><a href="home.html" class="block py-2 text-lg font-semibold hover:text-gray-200">Home</a></li>
         <li><a href="team.html" class="block py-2 text-lg font-semibold hover:text-gray-200">Team</a></li>
         <li><a href="testimonials.html" class="block py-2 text-lg font-semibold hover:text-gray-200">Testimonials & FAQ</a></li>
@@ -127,19 +144,32 @@
   </a>
 
   <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    const navLinks = navMenu.querySelectorAll('a');
+
+    // Toggle menu
+    menuToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('hidden');
+      menuToggle.textContent = navMenu.classList.contains('hidden') ? '☰' : '×';
+    });
+
+    // Close menu when a link is clicked (mobile only)
+    navLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (window.innerWidth < 768) {
+          navMenu.classList.add('hidden');
+          menuToggle.textContent = '☰';
+        }
+      });
+    });
+
     function toggleFAQ(element) {
       const answer = element.nextElementSibling;
       const allAnswers = document.querySelectorAll('.faq-answer');
       allAnswers.forEach(ans => { if (ans !== answer) ans.classList.remove('active'); });
       answer.classList.toggle('active');
     }
-    function toggleMenu() {
-      const navMenu = document.getElementById('nav-menu');
-      const menuToggle = document.getElementById('menu-toggle');
-      navMenu.classList.toggle('hidden');
-      menuToggle.textContent = navMenu.classList.contains('hidden') ? '☰' : '×';
-    }
   </script>
 </body>
 </html>
-
