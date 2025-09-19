@@ -157,7 +157,7 @@
   <script>
   
   // EmailJS setup
-  emailjs.init('YOUR_PUBLIC_KEY');
+  emailjs.init('2DgeerUB6WGf0eaHQ');
   function sendEmail(event) {
     event.preventDefault();
     const form = document.getElementById('contact-form');
@@ -172,7 +172,7 @@
       return;
     }
 
-    emailjs.send('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', { name, email, description }).then(
+    emailjs.send('service_pktfumb', 'template_jrko0ec', { name, email, description }).then(
       () => {
         formMessage.textContent = 'Message sent successfully!';
         formMessage.classList.replace('text-red-600', 'text-green-600');
@@ -189,3 +189,4 @@
 
 </body>
 </html>
+
