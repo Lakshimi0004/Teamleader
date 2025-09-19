@@ -155,38 +155,51 @@
   });
 </script>
   <script>
-  
-  // EmailJS setup
+  // ✅ Initialize EmailJS
   emailjs.init('2DgeerUB6WGf0eaHQ');
+
   function sendEmail(event) {
     event.preventDefault();
+
     const form = document.getElementById('contact-form');
     const formMessage = document.getElementById('form-message');
-    const name = form.querySelector('#name').value;
-    const email = form.querySelector('#email').value;
-    const description = form.querySelector('#description').value;
 
-    if (!name || !email || !description) {
-      formMessage.textContent = 'Please fill out all fields.';
+    const name = form.querySelector('#name').value.trim();
+    const email = form.querySelector('#email').value.trim();
+    const message = form.querySelector('#message').value.trim();
+
+    if (!name || !email || !message) {
+      formMessage.textContent = '⚠️ Please fill out all fields.';
       formMessage.classList.add('text-red-600');
       return;
     }
 
-    emailjs.send('service_pktfumb', 'template_jrko0ec', { name, email, description }).then(
+    // ✅ Send email with correct template variables
+    emailjs.send('service_pktfumb', 'template_jrko0ec', {
+      name,
+      email,
+      Date: new Date().toLocaleString(), // submission date
+      message
+    }).then(
       () => {
-        formMessage.textContent = 'Message sent successfully!';
-        formMessage.classList.replace('text-red-600', 'text-green-600');
+        formMessage.textContent = '✅ Message sent successfully!';
+        formMessage.classList.remove('text-red-600');
+        formMessage.classList.add('text-green-600');
         form.reset();
       },
       (error) => {
-        formMessage.textContent = 'Failed to send message. Please try again.';
+        formMessage.textContent = '❌ Failed to send message. Please try again.';
         formMessage.classList.add('text-red-600');
         console.error(error);
       }
     );
   }
+
+  // ✅ Attach event listener
+  document.getElementById('contact-form').addEventListener('submit', sendEmail);
 </script>
 
 </body>
 </html>
+
 
