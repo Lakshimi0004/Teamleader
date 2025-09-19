@@ -154,53 +154,38 @@
     });
   });
 </script>
- <script>
-  // ✅ Initialize EmailJS
-  emailjs.init('2DgeerUB6WGf0eaHQ');
+ <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script>
+  // ✅ Initialize EmailJS with your Public Key
+  (function() {
+    emailjs.init("2DgeerUB6WGf0eaHQ"); // replace with your actual Public Key
+  })();
 
-  function sendEmail(event) {
-    event.preventDefault();
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('contactName').value;
+    const email = document.getElementById('contactEmail').value;
+    const message = document.getElementById('contactMessage').value;
 
-    const form = document.getElementById('contact-form');
-    const formMessage = document.getElementById('form-message');
-
-    const name = form.querySelector('#name').value.trim();
-    const email = form.querySelector('#email').value.trim();
-    const message = form.querySelector('#message').value.trim();
-
-    if (!name || !email || !message) {
-      formMessage.textContent = '⚠️ Please fill out all fields.';
-      formMessage.classList.add('text-red-600');
-      return;
-    }
-
-    // ✅ Send email with lowercase keys (match template)
-    emailjs.send('service_pktfumb', 'template_jrko0ec', {
-      name,
-      email,
-      date: new Date().toLocaleString(), // lowercase key
-      message
-    }).then(
-      () => {
-        formMessage.textContent = '✅ Message sent successfully!';
-        formMessage.classList.remove('text-red-600');
-        formMessage.classList.add('text-green-600');
-        form.reset();
-      },
-      (error) => {
-        formMessage.textContent = '❌ Failed to send message. Please try again.';
-        formMessage.classList.add('text-red-600');
-        console.error(error);
-      }
-    );
-  }
-
-  // ✅ Attach event listener
-  document.getElementById('contact-form').addEventListener('submit', sendEmail);
+    emailjs.send('service_uoprl49', 'template_xkm5vc9', {
+        name: name,
+        email: email,
+        date: new Date().toLocaleString(), // lowercase 'date' is better for template
+        message: message
+    })
+    .then(function(response) {
+        alert('✅ Message sent successfully!');
+        document.getElementById('contactForm').reset();
+    }, function(error) {
+        alert('❌ Failed to send message. Please try again.');
+        console.error('EmailJS Error:', error);
+    });
+  });
 </script>
-
 </body>
 </html>
+
 
 
 
