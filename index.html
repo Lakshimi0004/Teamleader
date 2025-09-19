@@ -154,7 +154,7 @@
     });
   });
 </script>
-  <script>
+ <script>
   // ✅ Initialize EmailJS
   emailjs.init('2DgeerUB6WGf0eaHQ');
 
@@ -174,11 +174,11 @@
       return;
     }
 
-    // ✅ Send email with correct template variables
+    // ✅ Send email with lowercase keys (match template)
     emailjs.send('service_pktfumb', 'template_jrko0ec', {
       name,
       email,
-      Date: new Date().toLocaleString(), // submission date
+      date: new Date().toLocaleString(), // lowercase key
       message
     }).then(
       () => {
@@ -201,5 +201,6 @@
 
 </body>
 </html>
+
 
 
