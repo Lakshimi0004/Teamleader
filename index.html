@@ -162,40 +162,51 @@
   });
 </script>
  <script>
-    function sendEmail(event) {
-      event.preventDefault();
-      const form = document.getElementById('contact-form');
-      const formMessage = document.getElementById('form-message');
-      const name = form.querySelector('#name').value;
-      const email = form.querySelector('#email').value;
-      const description = form.querySelector('#description').value;
+  function sendEmail(event) {
+    event.preventDefault();
+    const form = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+    const name = form.querySelector('#name').value;
+    const email = form.querySelector('#email').value;
+    const description = form.querySelector('#description').value;
 
-      if (!name || !email || !description) {
-        formMessage.textContent = '⚠️ Please fill out all fields.';
-        formMessage.className = "text-red-600 text-center mt-3";
-        return;
-      }
-
-      emailjs.send("service_pktfumb", "template_jrko0ec", { 
-        name, 
-        email, 
-        description 
-      }).then(
-        () => {
-          formMessage.textContent = '✅ Message sent successfully!';
-          formMessage.className = "text-green-600 text-center mt-3";
-          form.reset();
-        },
-        (error) => {
-          formMessage.textContent = '❌ Failed to send message. Try again.';
-          formMessage.className = "text-red-600 text-center mt-3";
-          console.error("EmailJS Error:", error);
-        }
-      );
+    if (!name || !email || !description) {
+      formMessage.textContent = '⚠️ Please fill out all fields.';
+      formMessage.className = "text-red-600 text-center mt-3";
+      return;
     }
-  </script>
+
+    emailjs.send("service_pktfumb", "template_jrko0ec", { 
+      name, 
+      email, 
+      description 
+    }).then(
+      () => {
+        formMessage.textContent = '✅ Message sent successfully!';
+        formMessage.className = "text-green-600 text-center mt-3";
+        form.reset();
+
+        // ✅ Clear message after 3 seconds
+        setTimeout(() => {
+          formMessage.textContent = "";
+        }, 3000);
+      },
+      (error) => {
+        formMessage.textContent = '❌ Failed to send message. Try again.';
+        formMessage.className = "text-red-600 text-center mt-3";
+        console.error("EmailJS Error:", error);
+
+        // ❌ Also auto-hide error after 5 seconds (optional)
+        setTimeout(() => {
+          formMessage.textContent = "";
+        }, 5000);
+      }
+    );
+  }
+</script>
 </body>
 </html>
+
 
 
 
