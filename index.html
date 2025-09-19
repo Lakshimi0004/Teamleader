@@ -156,10 +156,38 @@
 </script>
  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
 <script>
- emailjs.init('2DgeerUB6WGf0eaHQ'); function sendEmail(event) { event.preventDefault(); const form = document.getElementById('contact-form'); const formMessage = document.getElementById('form-message'); const name = form.querySelector('#name').value; const email = form.querySelector('#email').value; const description = form.querySelector('#description').value; if (!name || !email || !description) { formMessage.textContent = 'Please fill out all fields.'; formMessage.classList.add('text-red-600'); return; } emailjs.send('service_pktfumb', 'template_jrko0ec', { name, email, description }).then( () => { formMessage.textContent = 'Message sent successfully!'; formMessage.classList.replace('text-red-600', 'text-green-600'); form.reset(); }, (error) => { formMessage.textContent = 'Failed to send message. Please try again.'; formMessage.classList.add('text-red-600'); console.error(error); } );
+emailjs.init('2DgeerUB6WGf0eaHQ');
+  function sendEmail(event) {
+    event.preventDefault();
+    const form = document.getElementById('contact-form');
+    const formMessage = document.getElementById('form-message');
+    const name = form.querySelector('#name').value;
+    const email = form.querySelector('#email').value;
+    const description = form.querySelector('#description').value;
+
+    if (!name || !email || !description) {
+      formMessage.textContent = 'Please fill out all fields.';
+      formMessage.classList.add('text-red-600');
+      return;
+    }
+
+    emailjs.send('service_pktfumb', 'template_jrko0ec', { name, email, description }).then(
+      () => {
+        formMessage.textContent = 'Message sent successfully!';
+        formMessage.classList.replace('text-red-600', 'text-green-600');
+        form.reset();
+      },
+      (error) => {
+        formMessage.textContent = 'Failed to send message. Please try again.';
+        formMessage.classList.add('text-red-600');
+        console.error(error);
+      }
+    );
+  }
 </script>
 </body>
 </html>
+
 
 
 
